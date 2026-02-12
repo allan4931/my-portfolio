@@ -1,0 +1,40 @@
+services:
+  # 1. Database (PostgreSQL) - To store your projects/skills
+  db:
+    image: postgres:15
+    environment:
+      - POSTGRES_USER=allan
+      - POSTGRES_PASSWORD=secure_pass
+      - POSTGRES_DB=portfolio_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  # 2. Backend (FastAPI) - The brain
+  backend:
+    build: ./backend
+    volumes:
+      - ./backend:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://allan:secure_pass@db:5432/portfolio_db
+    depends_on:
+      - db
+
+  # 3. Frontend (React) - The beauty (Apple Style)
+  frontend:
+    build: ./frontend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=http://localhost:8000
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:

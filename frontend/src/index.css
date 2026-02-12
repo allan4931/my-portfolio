@@ -1,0 +1,202 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Fira+Code:wght@400;500&display=swap');
+
+html {
+  scroll-behavior: smooth;
+}
+:root {
+  --bg: #030303;
+  --text: #ffffff;
+  --accent: #0070f3;
+  --card-bg: #0a0a0a;
+  --border: #1a1a1a;
+  font-size: 11px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --- NAVIGATION --- */
+.nav-wrapper {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3.5rem 0;
+  background: linear-gradient(to bottom, rgba(3,3,3,1) 0%, rgba(3,3,3,0) 100%);
+  backdrop-filter: blur(8px);
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  gap: 6rem;
+}
+
+.nav-link {
+  font-size: 1rem;
+  letter-spacing: 0.4rem;
+  text-transform: uppercase;
+  color: #555;
+  text-decoration: none;
+  font-weight: 900;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-link:hover {
+  color: var(--text);
+  letter-spacing: 0.6rem;
+}
+
+.nav-logo {
+  border: 1px solid white;
+  padding: 0.8rem 2.2rem;
+  font-weight: 900;
+  letter-spacing: 0.2rem;
+  font-size: 1.4rem;
+  white-space: nowrap;
+}
+
+/* --- 3D CODE ORB --- */
+.orb-scene {
+  width: 350px;
+  height: 350px;
+  perspective: 1000px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.orb-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  animation: orbRotation 30s infinite linear;
+}
+
+@keyframes orbRotation {
+  from { transform: rotateX(0deg) rotateY(0deg); }
+  to { transform: rotateX(360deg) rotateY(360deg); }
+}
+
+.orb-layer {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  border: 1px solid rgba(0, 112, 243, 0.25);
+  border-radius: 50%;
+}
+
+/* --- PC TERMINAL SCREEN --- */
+.pc-container {
+  background: #000;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 50px 100px rgba(0,0,0,0.8);
+  font-family: 'Fira Code', monospace;
+}
+
+.pc-header {
+  background: #111;
+  padding: 12px 20px;
+  display: flex;
+  gap: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.pc-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+.pc-content {
+  padding: 30px;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #d1d1d1;
+}
+
+/* --- SCROLLBAR --- */
+::-webkit-scrollbar { width: 2px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: #333; }
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@media (max-width: 1024px) {
+  /* Stack History Section vertically */
+  #history {
+    grid-template-columns: 1fr !important;
+    padding: 10vh 8vw !important;
+    gap: 5rem !important;
+  }
+
+  /* Change Stack items to 2 columns */
+  #stack > div {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Hero Text Scaling */
+  h1 {
+    font-size: 15vw !important;
+  }
+
+  /* Navigation Spacing */
+  .nav-container {
+    gap: 2rem !important;
+  }
+
+  .nav-link {
+    font-size: 0.9rem !important;
+    letter-spacing: 0.1rem !important;
+  }
+
+  .nav-logo {
+    font-size: 1.1rem !important;
+    padding: 0.6rem 1.2rem !important;
+  }
+
+  /* Stack Section (Icons) to 1 column */
+  #stack > div {
+    grid-template-columns: 1fr !important;
+  }
+
+  #stack div {
+    padding: 4rem 2rem !important;
+  }
+
+  /* Project Grid Spacing */
+  #work {
+    padding: 10vh 6vw !important;
+  }
+
+  /* Footer Email Wrap Fix */
+  footer a {
+    font-size: 2.2rem !important;
+    word-break: break-all;
+  }
+
+  /* Ensure the Terminal doesn't overflow */
+  .pc-content {
+    font-size: 1rem !important;
+    padding: 2rem !important;
+    overflow-x: auto;
+  }
+  #work .motion-div:hover {
+  box-shadow: 0 0 30px rgba(0, 112, 243, 0.15);
+  border-color: var(--accent) !important;
+  }
+}
