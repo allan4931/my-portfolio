@@ -1,0 +1,41 @@
+version: '3.8'
+services:
+  backend_allan:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    container_name: backend_allan
+    environment:
+      - FLASK_ENV=production
+      - HOSTNAME=allan.zivo.cloud
+    expose:
+      - "8000"
+    ports:
+      - "127.0.0.1:8001:8000"
+    restart: always
+
+  backend_sandbox:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    container_name: backend_sandbox
+    environment:
+      - FLASK_ENV=production
+      - HOSTNAME=sandbox.allan.zivo.cloud
+    expose:
+      - "8000"
+    ports:
+      - "127.0.0.1:8002:8000"
+    restart: always
+
+  # Optional: serve frontend as static files or build separately
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    environment:
+      - VITE_API_BASE=https://allan.zivo.cloud/api
+    ports:
+      - "127.0.0.1:3000:80"
+    restart: always
